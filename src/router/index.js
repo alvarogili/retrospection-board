@@ -240,20 +240,6 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'theme', icon: 'theme' }
-      }
-    ]
-  },
-
-  {
     path: '/clipboard',
     component: Layout,
     redirect: 'noredirect',
