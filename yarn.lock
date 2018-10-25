@@ -2760,11 +2760,6 @@ dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
-driver.js@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-0.5.2.tgz#5d0e14754a19277e2d36de0a3a6ae8e90e7bdd55"
-  integrity sha512-eXD6JD8PSb5nxjS1ADAsJ6OzSqIx/SoUMpx+GlyZQwEFj1M5t3+Tlv+6YKzsRYCCaYfMgSKY34+tUbnDwdLgPg==
-
 dropzone@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.2.0.tgz#2fdf6ac6472f4c62d03d3e9fc22aaa0229d299de"
