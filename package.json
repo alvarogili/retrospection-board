@@ -35,8 +35,6 @@
   },
   "dependencies": {
     "axios": "0.18.0",
-    "clipboard": "1.7.1",
-    "codemirror": "5.39.2",
     "connect": "3.6.6",
     "dropzone": "5.2.0",
     "echarts": "4.1.0",
