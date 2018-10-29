@@ -2,8 +2,8 @@
   <div class="card-scene">
     <Container
       orientation="horizontal"
-      @drop="onColumnDrop($event)"
       drag-handle-selector=".column-drag-handle"
+      @drop="onColumnDrop($event)"
       @drag-start="dragStart"
     >
       <Draggable v-for="column in scene.children" :key="column.id">
@@ -13,13 +13,13 @@
             {{ column.name }}
           </div>
           <Container
+            :get-child-payload="getCardPayload(column.id)"
             group-name="col"
+            drag-class="card-ghost"
+            drop-class="card-ghost-drop"
             @drop="(e) => onCardDrop(column.id, e)"
             @drag-start="(e) => log('drag start', e)"
             @drag-end="(e) => log('drag end', e)"
-            :get-child-payload="getCardPayload(column.id)"
-            drag-class="card-ghost"
-            drop-class="card-ghost-drop"
           >
             <Draggable v-for="card in column.children" :key="card.id">
               <div :class="card.props.className" :style="card.props.style">
@@ -77,7 +77,7 @@ const scene = {
       id: `${i}${j}`,
       props: {
         className: 'card',
-        style: {backgroundColor: pickColor()}
+        style: { backgroundColor: pickColor() }
       },
       data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
     }))
@@ -87,22 +87,22 @@ const scene = {
 export default {
   name: 'Cards',
 
-  components: {Container, Draggable},
+  components: { Container, Draggable },
 
-  data () {
+  data() {
     return {
       scene
     }
   },
 
   methods: {
-    onColumnDrop (dropResult) {
+    onColumnDrop(dropResult) {
       const scene = Object.assign({}, this.scene)
       scene.children = applyDrag(scene.children, dropResult)
       this.scene = scene
     },
 
-    onCardDrop (columnId, dropResult) {
+    onCardDrop(columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
         const scene = Object.assign({}, this.scene)
         const column = scene.children.filter(p => p.id === columnId)[0]
@@ -116,17 +116,17 @@ export default {
       }
     },
 
-    getCardPayload (columnId) {
+    getCardPayload(columnId) {
       return index => {
         return this.scene.children.filter(p => p.id === columnId)[0].children[index]
       }
     },
 
-    dragStart () {
+    dragStart() {
       console.log('drag started')
     },
 
-    log (...params) {
+    log(...params) {
       console.log(...params)
     }
   }
@@ -170,16 +170,19 @@ export default {
 
 .card-scene {
   padding: 50px;
-  /* background-color: #fff; */
+  background-color: #fff;
+  overflow: auto;
 }
 
 .card-container {
-  width: 320px;
+  width: 300px;
   padding: 10px;
-  margin: 5px;
-  margin-right: 45px;
-  background-color: #f3f3f3;
+  margin: 3px;
+  margin-right: 15px;
+  background-color: #e6e6e6d8;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+  min-width: 100px;
+  border-radius: 10px;
 }
 
 .card {
@@ -188,6 +191,7 @@ export default {
   background-color: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
   padding: 10px;
+  min-width: 100px;
 }
 
 .card-column-header {
@@ -224,7 +228,6 @@ export default {
   box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.0);
 }
 
-
 .form-demo {
   width: 650px;
   margin-left: auto;
@@ -247,7 +250,6 @@ export default {
   margin-right: 50px;
 }
 
-
 .form-ghost {
   transition: 0.18s ease;
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.08);
@@ -255,6 +257,10 @@ export default {
 
 .form-ghost-drop {
   box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.0);
+}
+
+.smooth-dnd-container.horizontal {
+  white-space: normal;
 }
 
 </style>
