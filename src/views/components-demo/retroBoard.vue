@@ -179,8 +179,9 @@ export default {
   padding: 10px;
   margin: 3px;
   margin-right: 15px;
-  background-color: #e6e6e6d8;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px;
+  background-color: rgba(145, 143, 143, 0.06);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12), 0 5px 5px rgba(0, 0, 0, 0.24);
   min-width: 100px;
   border-radius: 10px;
 }
