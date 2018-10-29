@@ -24,6 +24,7 @@ export default {
     dragDialog: 'Drag Dialog',
     dragSelect: 'Drag Select',
     dragKanban: 'Drag Kanban',
+    retroBoard: 'Retro Board',
     charts: 'Gráficos',
     keyboardChart: 'Keyboard Chart',
     lineChart: 'Gráfico de líneas',

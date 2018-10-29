@@ -41,7 +41,14 @@ const componentsRouter = {
       component: () => import('@/views/components-demo/dragKanban'),
       name: 'DragKanbanDemo',
       meta: { title: 'dragKanban' }
+    },
+    {
+      path: 'retroBoard',
+      component: () => import('@/views/components-demo/retroBoard'),
+      name: 'retroBoardDemo',
+      meta: { title: 'retroBoard' }
     }
+
   ]
 }
 
