@@ -7366,6 +7366,11 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
+smooth-dnd@0.5.9:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/smooth-dnd/-/smooth-dnd-0.5.9.tgz#fb09aead66ed51c44f90640f9894729d1a214e6c"
+  integrity sha512-bmxLcCjic8dAxcfqSKvqRQlDajIh8VFNmlSIoDh4QkeHqa1gYQCiQn3LEI0yY9SFkUKAYf/GYJ7kGCPRiJNSbQ==
+
 smooth-dnd@^0.6.2:
   version "0.6.2"
   resolved "http://nexus.ascentio.com.ar/nexus/repository/npm-public/smooth-dnd/-/smooth-dnd-0.6.2.tgz#e21f6aac1a5b9626f0376d55107838012b349d6e"
@@ -8352,6 +8357,13 @@ vue-router@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
   integrity sha512-vLLoY452L+JBpALMP5UHum9+7nzR9PeIBCghU9ZtJ1eWm6ieUI8Zb/DI3MYxH32bxkjzYV1LRjNv4qr8d+uX/w==
+
+vue-smooth-dnd@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/vue-smooth-dnd/-/vue-smooth-dnd-0.2.5.tgz#a62fe38b5b1d24f658a34cf6c74238bb2cc33c53"
+  integrity sha512-4v6d/EmaRSqwKKdpfnEbMaL1zHbjaUSWZLZTi9N4ZFSFAbKofQ/FaD5qNt19tXFAIOdjvOJ1ES6gR4X5s0GNWg==
+  dependencies:
+    smooth-dnd "0.5.9"
 
 vue-splitpane@1.0.2:
   version "1.0.2"

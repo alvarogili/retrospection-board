@@ -8,34 +8,42 @@
 
 <script>
 
-import store from '@/store'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'addColumnBoard',
+  name: 'AddColumnBoard',
   methods: {
+    ...mapActions(['addColmun']),
+
     addNewColumn(columnName) {
       console.log('add column')
-      console.log(this.$store.state.retroBoard.columns)
-      this.$store.dispatch('addColmun',columnName)
+      var size = this.$store.state.retroBoard.columns.length + 1
+      var column = {
+        id: size,
+        name: columnName,
+        cards: []
+      }
+      this.addColmun(column)
       console.log(this.$store.state.retroBoard.columns)
     },
 
     openPopup() {
       this.$prompt('Insert the name of the new column', 'New column', {
         confirmButtonText: 'Create',
-        cancelButtonText: 'Cancel',
-      }).then(({ columnName }) => {
+        cancelButtonText: 'Cancel'
+      }).then(({ value }) => {
         this.$message({
           type: 'success',
-          message: 'Column '+columnName+' created'
-        }),
-        this.addNewColumn(columnName);
+          message: 'Column ' + value + ' created'
+        })
+        console.log(value)
+        this.addNewColumn(value)
       }).catch(() => {
         this.$message({
           type: 'info',
           message: 'New column canceled.'
-        });       
-      });
+        })
+      })
     }
   }
 }

@@ -1,30 +1,30 @@
 <template>
   <div >
-    <AddColumnBoard></AddColumnBoard>
+    <AddColumnBoard/>
     <div class="card-scene">
       <Container
         orientation="horizontal"
-        @drop="onColumnDrop($event)"
         drag-handle-selector=".column-drag-handle"
+        @drop="onColumnDrop($event)"
         @drag-start="dragStart"
       >
         <Draggable v-for="column in board.columns" :key="column.id">
-          <div :class="column.props.className">
+          <div class="card-container">
             <div class="card-column-header">
               <span class="column-drag-handle">&#x2630;</span>
               {{ column.name }}
             </div>
             <Container
+              :get-child-payload="getCardPayload(column.id)"
               group-name="col"
+              drag-class="card-ghost"
+              drop-class="card-ghost-drop"
               @drop="(e) => onCardDrop(column.id, e)"
               @drag-start="(e) => log('drag start', e)"
               @drag-end="(e) => log('drag end', e)"
-              :get-child-payload="getCardPayload(column.id)"
-              drag-class="card-ghost"
-              drop-class="card-ghost-drop"
             >
               <Draggable v-for="card in column.cards" :key="card.id">
-                <div :class="card.props.className" :style="card.props.style">
+                <div :style="card.props.style" class="card">
                   <p>{{ card.description }}</p>
                 </div>
               </Draggable>
@@ -38,9 +38,9 @@
 
 <script>
 import { Container, Draggable } from 'vue-smooth-dnd'
-import { applyDrag, generateItems } from '../../utils/helpers'
+import { applyDrag } from '../../utils/helpers'
 import AddColumnBoard from '@/components/AddColumnBoard'
-import mapState from 'vuex'
+import { mapState } from 'vuex'
 
 /* Data structure
   columns :[
@@ -57,36 +57,16 @@ import mapState from 'vuex'
     }
   ]
  */
-const lorem = `test`
-
-const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod']
-
-const cardColors = [
-  'azure',
-  'beige',
-  'bisque',
-  'blanchedalmond',
-  'burlywood',
-  'cornsilk',
-  'gainsboro',
-  'ghostwhite',
-  'ivory',
-  'khaki'
-]
-
-const pickColor = () => {
-  const rand = Math.floor(Math.random() * 10)
-  return cardColors[rand]
-}
 
 export default {
   name: 'Cards',
-  components: {Container, Draggable, AddColumnBoard},
+
+  components: { Container, Draggable, AddColumnBoard },
 
   computed: {
-        ...mapState({
+    ...mapState({
       board: state => state.retroBoard
-        })
+    })
   },
 
   methods: {
