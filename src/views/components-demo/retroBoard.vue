@@ -29,6 +29,7 @@
                 </div>
               </Draggable>
             </Container>
+            <AddCardBoard :scene="column.id"/>
           </div>
         </Draggable>
       </Container>

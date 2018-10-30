@@ -153,5 +153,14 @@ export default {
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
+  },
+  retroBoard: {
+    addCard: 'Add Card',
+    cardDescription: 'Please, add a card description:',
+    placeholder: 'Please enter a description',
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    addedOk: 'Card added successfully',
+    addedCancel: 'Card wasn\'t added.'
   }
 }

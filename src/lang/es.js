@@ -153,5 +153,14 @@ export default {
     close: 'Cerrar',
     closeOthers: 'Cerrar otros',
     closeAll: 'Cerrar todos'
+  },
+  retroBoard: {
+    addCard: 'Agregar Tarjeta',
+    cardDescription: 'Por favor, agregue la descripción de la tarjeta:',
+    placeholder: 'Por favor escribe una descripción',
+    cancel: 'Cancelar',
+    confirm: 'Confirmar',
+    addedOk: 'Tarjeta agregada correctamente.',
+    addedCancel: 'Tarjeta no agregada'
   }
 }
