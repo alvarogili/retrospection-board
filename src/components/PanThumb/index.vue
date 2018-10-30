@@ -23,11 +23,11 @@ export default {
     },
     width: {
       type: String,
-      default: '100px'
+      default: '150px'
     },
     height: {
       type: String,
-      default: '100px'
+      default: '150px'
     }
   }
 }
