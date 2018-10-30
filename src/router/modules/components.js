@@ -13,36 +13,6 @@ const componentsRouter = {
   },
   children: [
     {
-      path: 'mixin',
-      component: () => import('@/views/components-demo/mixin'),
-      name: 'ComponentMixinDemo',
-      meta: { title: 'componentMixin' }
-    },
-    {
-      path: 'drag-dialog',
-      component: () => import('@/views/components-demo/dragDialog'),
-      name: 'DragDialogDemo',
-      meta: { title: 'dragDialog' }
-    },
-    {
-      path: 'drag-select',
-      component: () => import('@/views/components-demo/dragSelect'),
-      name: 'DragSelectDemo',
-      meta: { title: 'dragSelect' }
-    },
-    {
-      path: 'dnd-list',
-      component: () => import('@/views/components-demo/dndList'),
-      name: 'DndListDemo',
-      meta: { title: 'dndList' }
-    },
-    {
-      path: 'drag-kanban',
-      component: () => import('@/views/components-demo/dragKanban'),
-      name: 'DragKanbanDemo',
-      meta: { title: 'dragKanban' }
-    },
-    {
       path: 'retroBoard',
       component: () => import('@/views/components-demo/retroBoard'),
       name: 'retroBoardDemo',
