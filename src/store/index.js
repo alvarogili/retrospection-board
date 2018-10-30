@@ -6,8 +6,12 @@ import permission from './modules/permission'
 import user from './modules/user'
 import retroBoard from './modules/retroBoard'
 import getters from './getters'
+import firebasePersist from './plugins/firebase-persist'
+import { database } from 'firebase'
 
 Vue.use(Vuex)
+
+const firebasePersistPlugin = firebasePersist(database)
 
 const store = new Vuex.Store({
   modules: {
@@ -17,7 +21,8 @@ const store = new Vuex.Store({
     user,
     retroBoard
   },
-  getters
+  getters,
+  plugins: [firebasePersistPlugin]
 })
 
 export default store

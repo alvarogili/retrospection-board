@@ -20,6 +20,10 @@ import './permission' // permission control
 import './mock' // simulation data
 
 import * as filters from './filters' // global filters
+import database from '@/api/database'
+import { firebaseConfig } from '@/config'
+
+database.init(firebaseConfig)
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
