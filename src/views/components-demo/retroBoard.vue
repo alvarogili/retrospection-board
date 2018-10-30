@@ -1,7 +1,7 @@
 <template>
   <div >
     <AddColumnBoard/>
-    <div class="card-scene">
+    <div class="card-board">
       <Container
         orientation="horizontal"
         drag-handle-selector=".column-drag-handle"
@@ -24,10 +24,11 @@
               @drag-end="(e) => log('drag end', e)"
             >
               <Draggable v-for="card in column.cards" :key="card.id">
-                <div :style="card.props.style" class="card">
+                <div class="card">
                   <p>{{ card.description }}</p>
                 </div>
               </Draggable>
+              <AddCardBoard :column-id="column.id"/>
             </Container>
             <AddCardBoard :scene="column.id"/>
           </div>
@@ -72,28 +73,28 @@ export default {
 
   methods: {
     onColumnDrop(dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
+      const board = Object.assign({}, this.board)
+      board.columns = applyDrag(board.columns, dropResult)
+      this.board = board
     },
 
     onCardDrop(columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const scene = Object.assign({}, this.scene)
-        const column = scene.children.filter(p => p.id === columnId)[0]
-        const columnIndex = scene.children.indexOf(column)
+        const board = Object.assign({}, this.board)
+        const column = board.columns.filter(p => p.id === columnId)[0]
+        const columnIndex = board.columns.indexOf(column)
 
         const newColumn = Object.assign({}, column)
-        newColumn.children = applyDrag(newColumn.children, dropResult)
-        scene.children.splice(columnIndex, 1, newColumn)
+        newColumn.cards = applyDrag(newColumn.cards, dropResult)
+        board.columns.splice(columnIndex, 1, newColumn)
 
-        this.scene = scene
+        this.board = board
       }
     },
 
     getCardPayload(columnId) {
       return index => {
-        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+        return this.board.columns.filter(p => p.id === columnId)[0].cards[index]
       }
     },
 
@@ -143,7 +144,7 @@ export default {
   background-color: yellow;
 }
 
-.card-scene {
+.card-board {
   padding: 50px;
   background-color: #fff;
   overflow: auto;
@@ -155,7 +156,7 @@ export default {
   margin: 3px;
   margin-right: 15px;
   margin-bottom: 20px;
-  background-color: rgba(145, 143, 143, 0.06);
+  background-color: rgba(209, 207, 207, 0.719);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12), 0 5px 5px rgba(0, 0, 0, 0.24);
   min-width: 100px;
   border-radius: 10px;
@@ -168,6 +169,7 @@ export default {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
   padding: 10px;
   min-width: 100px;
+  border-radius: 10px;
 }
 
 .card-column-header {
