@@ -1,41 +1,45 @@
 <template>
-  <div class="card-scene">
-    <Container
-      orientation="horizontal"
-      drag-handle-selector=".column-drag-handle"
-      @drop="onColumnDrop($event)"
-      @drag-start="dragStart"
-    >
-      <Draggable v-for="column in scene.children" :key="column.id">
-        <div :class="column.props.className">
-          <div class="card-column-header">
-            <span class="column-drag-handle">&#x2630;</span>
-            {{ column.name }}
+  <div >
+    <AddColumnBoard></AddColumnBoard>
+    <div class="card-scene">
+      <Container
+        orientation="horizontal"
+        @drop="onColumnDrop($event)"
+        drag-handle-selector=".column-drag-handle"
+        @drag-start="dragStart"
+      >
+        <Draggable v-for="column in scene.children" :key="column.id">
+          <div :class="column.props.className">
+            <div class="card-column-header">
+              <span class="column-drag-handle">&#x2630;</span>
+              {{ column.name }}
+            </div>
+            <Container
+              group-name="col"
+              @drop="(e) => onCardDrop(column.id, e)"
+              @drag-start="(e) => log('drag start', e)"
+              @drag-end="(e) => log('drag end', e)"
+              :get-child-payload="getCardPayload(column.id)"
+              drag-class="card-ghost"
+              drop-class="card-ghost-drop"
+            >
+              <Draggable v-for="card in column.children" :key="card.id">
+                <div :class="card.props.className" :style="card.props.style">
+                  <p>{{ card.data }}</p>
+                </div>
+              </Draggable>
+            </Container>
           </div>
-          <Container
-            :get-child-payload="getCardPayload(column.id)"
-            group-name="col"
-            drag-class="card-ghost"
-            drop-class="card-ghost-drop"
-            @drop="(e) => onCardDrop(column.id, e)"
-            @drag-start="(e) => log('drag start', e)"
-            @drag-end="(e) => log('drag end', e)"
-          >
-            <Draggable v-for="card in column.children" :key="card.id">
-              <div :class="card.props.className" :style="card.props.style">
-                <p>{{ card.data }}</p>
-              </div>
-            </Draggable>
-          </Container>
-        </div>
-      </Draggable>
-    </Container>
+        </Draggable>
+      </Container>
+    </div>
   </div>
 </template>
 
 <script>
 import { Container, Draggable } from '../../utils/vue-smooth-dnd'
 import { applyDrag, generateItems } from '../../utils/helpers'
+import AddColumnBoard from '@/components/AddColumnBoard'
 
 const lorem = `test`
 
@@ -87,7 +91,7 @@ const scene = {
 export default {
   name: 'Cards',
 
-  components: { Container, Draggable },
+  components: {Container, Draggable, AddColumnBoard},
 
   data() {
     return {
