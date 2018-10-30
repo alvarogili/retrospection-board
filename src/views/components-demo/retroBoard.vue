@@ -8,7 +8,7 @@
         drag-handle-selector=".column-drag-handle"
         @drag-start="dragStart"
       >
-        <Draggable v-for="column in scene.children" :key="column.id">
+        <Draggable v-for="column in board.columns" :key="column.id">
           <div :class="column.props.className">
             <div class="card-column-header">
               <span class="column-drag-handle">&#x2630;</span>
@@ -23,9 +23,9 @@
               drag-class="card-ghost"
               drop-class="card-ghost-drop"
             >
-              <Draggable v-for="card in column.children" :key="card.id">
+              <Draggable v-for="card in column.cards" :key="card.id">
                 <div :class="card.props.className" :style="card.props.style">
-                  <p>{{ card.data }}</p>
+                  <p>{{ card.description }}</p>
                 </div>
               </Draggable>
             </Container>
@@ -37,10 +37,26 @@
 </template>
 
 <script>
-import { Container, Draggable } from '../../utils/vue-smooth-dnd'
+import { Container, Draggable } from 'vue-smooth-dnd'
 import { applyDrag, generateItems } from '../../utils/helpers'
 import AddColumnBoard from '@/components/AddColumnBoard'
+import mapState from 'vuex'
 
+/* Data structure
+  columns :[
+    {
+      id: `column${i}`,
+      name: 'NAME',
+      cards: [
+        {
+          id: `card${i}-${j}`,
+          description: 'DESCRIPTION',
+          votes: int
+        }
+      ]
+    }
+  ]
+ */
 const lorem = `test`
 
 const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod']
@@ -63,39 +79,14 @@ const pickColor = () => {
   return cardColors[rand]
 }
 
-const scene = {
-  type: 'container',
-  props: {
-    orientation: 'horizontal'
-  },
-  children: generateItems(4, i => ({
-    id: `column${i}`,
-    type: 'container',
-    name: columnNames[i],
-    props: {
-      orientation: 'vertical',
-      className: 'card-container'
-    },
-    children: generateItems(+(Math.random() * 10).toFixed() + 5, j => ({
-      type: 'draggable',
-      id: `${i}${j}`,
-      props: {
-        className: 'card',
-        style: { backgroundColor: pickColor() }
-      },
-      data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
-    }))
-  }))
-}
-
 export default {
   name: 'Cards',
   components: {Container, Draggable, AddColumnBoard},
 
-  data() {
-    return {
-      scene
-    }
+  computed: {
+        ...mapState({
+      board: state => state.retroBoard
+        })
   },
 
   methods: {
