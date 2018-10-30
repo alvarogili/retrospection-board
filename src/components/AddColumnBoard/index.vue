@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-row>
-      <el-button type="primary" @click="openPopup"><b>Add Column</b></el-button>
+      <div class="location-add-table-button">
+        <el-button type="primary" @click="openPopup"><b>Add Column</b></el-button>
+      </div>
     </el-row>
   </div>
 </template>
@@ -49,3 +51,10 @@ export default {
 }
 
 </script>
+
+<style scoped=css>
+.location-add-table-button {
+  margin-left: 35px;
+  margin-top: 13px;
+}
+</style>

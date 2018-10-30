@@ -15,7 +15,7 @@
  */
 const retroBoard = {
   state: {
-      columns: []
+    columns: []
   },
 
   mutations: {
@@ -23,16 +23,16 @@ const retroBoard = {
       state.columns.push(column)
     },
     DELETE_COLUMN: (state, columnId) => {
-      for( var i = 0; i < state.columns.length; i++) {
-        if ( state.columns[i].id === columnId) {
-          state.columns.splice(i, 1);
+      for (var i = 0; i < state.columns.length; i++) {
+        if (state.columns[i].id === columnId) {
+          state.columns.splice(i, 1)
           return
         }
       }
     },
     EDIT_COLUMN: (state, columnEdition) => {
-      for( var i = 0; i < state.columns.length; i++) {
-        if ( state.columns[i].id === columnEdition.id) {
+      for (var i = 0; i < state.columns.length; i++) {
+        if (state.columns[i].id === columnEdition.id) {
           state.columns[i].name = columnEdition.columnNewName
           return
         }
@@ -40,38 +40,38 @@ const retroBoard = {
     },
     ADD_CARD: (state, cardObject) => {
       /*
-      cardObject = { columnId: 'ID' , card: Object} 
+      cardObject = { columnId: 'ID' , card: Object}
       */
-      for( var i = 0; i < state.columns.length; i++) {
-        if ( state.columns[i].id === cardObject.columnId) {
+      for (var i = 0; i < state.columns.length; i++) {
+        if (state.columns[i].id === cardObject.columnId) {
           state.columns[i].cards.push(cardObject.card)
           return
         }
       }
     },
     EDIT_CARD: (state, cardObject) => {
-      for( var i = 0; i < state.columns.length; i++) {
-        if ( state.columns[i].id === cardObject.columnId) {
-          for( var j = 0; j < state.columns[i].cards.length; j++) {
-            if(state.columns[i].cards[j].id === cardObject.id){
+      for (var i = 0; i < state.columns.length; i++) {
+        if (state.columns[i].id === cardObject.columnId) {
+          for (var j = 0; j < state.columns[i].cards.length; j++) {
+            if (state.columns[i].cards[j].id === cardObject.id) {
               state.columns[i].cards[j] = cardObject.card
             }
             return
           }
         }
-      }      
+      }
     },
     DELETE_CARD: (state, cardObject) => {
-      for( var i = 0; i < state.columns.length; i++) {
-        if ( state.columns[i].id === cardObject.columnId) {
-          for( var j = 0; j < state.columns[i].cards.length; j++) {
-            if(state.columns[i].cards[j].id === cardObject.id){
+      for (var i = 0; i < state.columns.length; i++) {
+        if (state.columns[i].id === cardObject.columnId) {
+          for (var j = 0; j < state.columns[i].cards.length; j++) {
+            if (state.columns[i].cards[j].id === cardObject.id) {
               state.columns[i].cards.splice(j, 1)
             }
             return
           }
         }
-      }      
+      }
     }
   },
 
@@ -93,7 +93,7 @@ const retroBoard = {
     },
     deleteCard({ commit }, cardObject) {
       commit('DELETE_CARD', cardObject)
-    },
+    }
   }
 }
 
