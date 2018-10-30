@@ -90,7 +90,6 @@ const scene = {
 
 export default {
   name: 'Cards',
-
   components: {Container, Draggable, AddColumnBoard},
 
   data() {
