@@ -1,10 +1,8 @@
 <template>
   <div>
-    <el-row>
-      <div class="location-add-table-button">
-        <el-button type="primary" @click="openPopup"><b>Add Column</b></el-button>
-      </div>
-    </el-row>
+    <div class="location-add-table-button">
+      <el-button type="primary" @click="openPopup"><b>Add Column</b></el-button>
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,15 @@
 <template>
   <div >
-    <AddColumnBoard/>
+    <el-row>
+      <el-col :span="4" class="text-center">
+        <AddColumnBoard/>
+      </el-col>
+      <el-col :span="4" class="text-center">
+        <div class="location-add-table-button">
+          <el-button type="primary" onclick="TogetherJS(this); return false;"><b>Start TogetherJS</b></el-button>
+        </div>
+      </el-col>
+    </el-row>
     <div class="card-board">
       <Container
         orientation="horizontal"
@@ -255,4 +264,8 @@ export default {
   white-space: normal;
 }
 
+.location-add-table-button {
+  margin-left: 35px;
+  margin-top: 13px;
+}
 </style>
