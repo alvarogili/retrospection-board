@@ -7,3 +7,5 @@ export const firebaseConfig = {
   storageBucket: '',
   messagingSenderId: '865153908257'
 }
+
+export const firebaseBoardPath = 'board/exampleboard'

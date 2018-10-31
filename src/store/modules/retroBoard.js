@@ -14,7 +14,7 @@
   ]
  */
 
-import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD, APPLY_DRAG_BOARD, APPLY_DRAG_CARD } from '@/store/mutation-types'
+import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD, APPLY_DRAG_BOARD, APPLY_DRAG_CARD, LOAD_BOARD } from '@/store/mutation-types'
 import { applyDrag } from '@/utils/helpers'
 
 const retroBoard = {
@@ -23,6 +23,9 @@ const retroBoard = {
   },
 
   mutations: {
+    [LOAD_BOARD]: (state, newBoard) => {
+      state.columns = newBoard.columns
+    },
     [APPLY_DRAG_BOARD]: (state, dropResult) => {
       state.columns = applyDrag(state.columns, dropResult)
     },
@@ -31,7 +34,11 @@ const retroBoard = {
       const dropResult = dropCardResult.dropResult
       const column = state.columns.filter(p => p.id === columnId)[0]
       const columnIndex = state.columns.indexOf(column)
-      column.cards = applyDrag(column.cards, dropResult)
+      var cards = []
+      if (column.cards) {
+        cards = column.cards
+      }
+      column.cards = applyDrag(cards, dropResult)
       state.columns.splice(columnIndex, 1, column)
     },
     [ADD_COLUMN]: (state, column) => {
@@ -59,7 +66,11 @@ const retroBoard = {
       */
       for (var i = 0; i < state.columns.length; i++) {
         if (state.columns[i].id === cardObject.columnId) {
-          state.columns[i].cards.push(cardObject.card)
+          if (state.columns[i].cards) {
+            state.columns[i].cards.push(cardObject.card)
+          } else {
+            state.columns[i].cards = [cardObject.card]
+          }
           return
         }
       }
@@ -91,6 +102,9 @@ const retroBoard = {
   },
 
   actions: {
+    loadBoard({ commit }, newBoard) {
+      commit(LOAD_BOARD, newBoard)
+    },
     applyDragBoard({ commit }, dropResult) {
       commit(APPLY_DRAG_BOARD, dropResult)
     },

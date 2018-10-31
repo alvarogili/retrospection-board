@@ -43,6 +43,8 @@ import { Container, Draggable } from 'vue-smooth-dnd'
 import AddColumnBoard from '@/components/AddColumnBoard'
 import AddCardBoard from '@/components/AddCardBoard'
 import { mapState, mapActions } from 'vuex'
+import database from '@/api/database'
+import { firebaseBoardPath } from '@/config'
 
 /* Data structure
   columns :[
@@ -65,14 +67,33 @@ export default {
 
   components: { Container, Draggable, AddColumnBoard },
 
+  data() {
+    return {
+      watchRef: null
+    }
+  },
+
   computed: {
     ...mapState({
       board: state => state.retroBoard
     })
   },
 
+  mounted() {
+    console.log('mounting')
+    this.watchTeam()
+  },
+
   methods: {
-    ...mapActions(['applyDragBoard', 'applyDragCard']),
+    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard']),
+
+    watchTeam() {
+      this.watchRef = database.watch(firebaseBoardPath, (snapshot) => {
+        const board = snapshot.val()
+        console.log(board)
+        this.loadBoard(board)
+      })
+    },
 
     onColumnDrop(dropResult) {
       this.applyDragBoard(dropResult)

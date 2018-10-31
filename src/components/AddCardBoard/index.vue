@@ -49,23 +49,22 @@ export default {
     },
     addNewCard(cardDesc) {
       console.log('add card to column with id=' + this.columnId)
-      var size = this.$store.state.retroBoard.columns[this.columnId - 1].cards.length + 1
+      var size = 1
+      if (this.$store.state.retroBoard.columns[this.columnId - 1].cards) {
+        size = this.$store.state.retroBoard.columns[this.columnId - 1].cards.length + 1
+      }
       console.log(size)
       var newCard = {
         id: `card-${this.columnId}-${size}`,
         description: cardDesc,
         votes: 0
       }
-      console.log(newCard)
 
       var cardObject = {
         columnId: this.columnId,
         card: newCard
       }
-      console.log(cardObject)
-
       this.addCard(cardObject)
-      console.log(this.$store.state.retroBoard.columns)
     }
   }
 }
