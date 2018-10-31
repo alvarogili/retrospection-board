@@ -34,7 +34,7 @@
             >
               <Draggable v-for="card in column.cards" :key="card.id">
                 <div class="card exactFit">
-                  <p>{{ card.description }}</p>
+                  <p style="white-space: pre-line">{{ card.description }}</p>
                 </div>
               </Draggable>
               <AddCardBoard :column-id="column.id"/>

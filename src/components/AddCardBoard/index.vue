@@ -32,7 +32,8 @@ export default {
         confirmButtonText: this.$t('retroBoard.confirm'),
         cancelButtonText: this.$t('retroBoard.cancel'),
         inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*/,
-        inputErrorMessage: this.$t('retroBoard.placeholder')
+        inputErrorMessage: this.$t('retroBoard.placeholder'),
+        inputType: 'textarea'
       }).then(({ value }) => {
         console.log(value)
         this.addNewCard(value)
