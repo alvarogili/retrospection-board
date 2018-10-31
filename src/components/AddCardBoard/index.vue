@@ -52,7 +52,7 @@ export default {
       var size = this.$store.state.retroBoard.columns[this.columnId - 1].cards.length + 1
       console.log(size)
       var newCard = {
-        id: size,
+        id: `card-${this.columnId}-${size}`,
         description: cardDesc,
         votes: 0
       }

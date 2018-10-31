@@ -40,7 +40,6 @@
 
 <script>
 import { Container, Draggable } from 'vue-smooth-dnd'
-import { applyDrag } from '../../utils/helpers'
 import AddColumnBoard from '@/components/AddColumnBoard'
 import AddCardBoard from '@/components/AddCardBoard'
 import { mapState, mapActions } from 'vuex'
@@ -73,7 +72,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['applyDragBoard']),
+    ...mapActions(['applyDragBoard', 'applyDragCard']),
 
     onColumnDrop(dropResult) {
       this.applyDragBoard(dropResult)
@@ -81,21 +80,14 @@ export default {
 
     onCardDrop(columnId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board = Object.assign({}, this.board)
-        const column = board.columns.filter(p => p.id === columnId)[0]
-        const columnIndex = board.columns.indexOf(column)
-
-        const newColumn = Object.assign({}, column)
-        newColumn.cards = applyDrag(newColumn.cards, dropResult)
-        board.columns.splice(columnIndex, 1, newColumn)
-
-        this.board = board
+        const dropCardResult = { columnId, dropResult }
+        this.applyDragCard(dropCardResult)
       }
     },
 
     getCardPayload(columnId) {
       return index => {
-        return this.board.columns.filter(p => p.id === columnId)[0].cards[index]
+        return this.$store.state.retroBoard.columns.filter(p => p.id === columnId)[0].cards[index]
       }
     },
 
