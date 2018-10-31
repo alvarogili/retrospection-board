@@ -33,7 +33,7 @@
               @drag-end="(e) => log('drag end', e)"
             >
               <Draggable v-for="card in column.cards" :key="card.id">
-                <div class="card">
+                <div class="card exactFit">
                   <p>{{ card.description }}</p>
                 </div>
               </Draggable>
@@ -267,5 +267,9 @@ export default {
 .location-add-table-button {
   margin-left: 35px;
   margin-top: 13px;
+}
+
+div.exactFit {
+    word-wrap: break-word;
 }
 </style>

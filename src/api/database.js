@@ -4,7 +4,7 @@ let database = null
 
 const init = function init(firebaseConfig) {
   const firebaseApp = firebase.initializeApp({ options: firebaseConfig })
-  database = firebaseApp.database('https://vue-kanban-8dac0.firebaseio.com/')
+  database = firebaseApp.database(firebaseConfig.databaseURL)
 }
 
 const watch = function watch(path, callback) {
