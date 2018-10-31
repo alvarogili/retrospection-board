@@ -42,7 +42,8 @@
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { applyDrag } from '../../utils/helpers'
 import AddColumnBoard from '@/components/AddColumnBoard'
-import { mapState } from 'vuex'
+import AddCardBoard from '@/components/AddCardBoard'
+import { mapState, mapActions } from 'vuex'
 
 /* Data structure
   columns :[
@@ -72,10 +73,10 @@ export default {
   },
 
   methods: {
+    ...mapActions(['applyDragBoard']),
+
     onColumnDrop(dropResult) {
-      const board = Object.assign({}, this.board)
-      board.columns = applyDrag(board.columns, dropResult)
-      this.board = board
+      this.applyDragBoard(dropResult)
     },
 
     onCardDrop(columnId, dropResult) {

@@ -14,7 +14,8 @@
   ]
  */
 
-import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD } from '@/store/mutation-types'
+import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD, APPLY_DRAG_BOARD } from '@/store/mutation-types'
+import { applyDrag } from '@/utils/helpers'
 
 const retroBoard = {
   state: {
@@ -22,6 +23,9 @@ const retroBoard = {
   },
 
   mutations: {
+    [APPLY_DRAG_BOARD]: (state, dropResult) => {
+      state.columns = applyDrag(state.columns, dropResult)
+    },
     [ADD_COLUMN]: (state, column) => {
       state.columns.push(column)
     },
@@ -79,6 +83,9 @@ const retroBoard = {
   },
 
   actions: {
+    applyDragBoard({ commit }, dropResult) {
+      commit(APPLY_DRAG_BOARD, dropResult)
+    },
     addColmun({ commit }, column) {
       commit(ADD_COLUMN, column)
     },
