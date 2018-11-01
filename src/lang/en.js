@@ -156,11 +156,16 @@ export default {
   },
   retroBoard: {
     addCard: 'Add Card',
+    addColumn: 'Add Column',
     cardDescription: 'Please, add a card description:',
+    columnTitle: 'Insert the name of the new column',
     placeholder: 'Please enter a description',
     cancel: 'Cancel',
     confirm: 'Confirm',
+    create: 'Create',
     addedOk: 'Card added successfully',
-    addedCancel: 'Card wasn\'t added.'
+    addedCancel: 'Card wasn\'t added.',
+    addColumnCanceled: 'New column canceled',
+    addColumnOK: 'Column {name} created'
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="location-add-table-button">
-      <el-button type="primary" @click="openPopup"><b>Add Column</b></el-button>
+      <el-button type="primary" @click="openPopup"><b>{{ message }}</b></el-button>
     </div>
   </div>
 </template>
@@ -12,6 +12,11 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'AddColumnBoard',
+  computed: {
+    message() {
+      return this.$t('retroBoard.addColumn')
+    }
+  },
   methods: {
     ...mapActions(['addColmun']),
 
@@ -28,20 +33,20 @@ export default {
     },
 
     openPopup() {
-      this.$prompt('Insert the name of the new column', 'New column', {
-        confirmButtonText: 'Create',
-        cancelButtonText: 'Cancel'
+      this.$prompt(this.$t('retroBoard.columnTitle'), this.$t('retroBoard.addColumn'), {
+        confirmButtonText: this.$t('retroBoard.create'),
+        cancelButtonText: this.$t('retroBoard.cancel')
       }).then(({ value }) => {
         this.$message({
           type: 'success',
-          message: 'Column ' + value + ' created'
+          message: this.$t('retroBoard.addColumnOK', { name: value })
         })
         console.log(value)
         this.addNewColumn(value)
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: 'New column canceled.'
+          message: this.$t('retroBoard.addColumnCanceled')
         })
       })
     }

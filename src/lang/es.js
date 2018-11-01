@@ -156,11 +156,16 @@ export default {
   },
   retroBoard: {
     addCard: 'Agregar Tarjeta',
+    addColumn: 'Agregar Columna',
     cardDescription: 'Por favor, agregue la descripción de la tarjeta:',
+    columnTitle: 'Ingrese el nombre de la nueva columna',
     placeholder: 'Por favor escribe una descripción',
     cancel: 'Cancelar',
     confirm: 'Confirmar',
+    create: 'Crear',
     addedOk: 'Tarjeta agregada correctamente.',
-    addedCancel: 'Tarjeta no agregada'
+    addedCancel: 'Tarjeta no agregada',
+    addColumnCanceled: 'Creación de la nueva columna cancelada',
+    addColumnOK: 'Columna {name} creada'
   }
 }
