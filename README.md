@@ -3,13 +3,7 @@
 
 [retrospection-board](https://gitlab.ascentio.com.ar/canopus-team/retro-board/retrospection-board) make more fun the Retrospective . It based on [vue](https://github.com/vuejs/vue) and [vue-element-admin](http://panjiachen.github.io/vue-element-admin)  and use the UI Toolkit [element](https://github.com/ElemeFE/element).
 
-It is a magical vue admin based on the newest development stack of vue, built-in i18n solution, typical templates for enterprise applications, lots of awesome features. It helps you build a large complex Single-Page Applications. I believe whatever your needs are, this project will help you.
-
 **This project does not support low version browsers (e.g. IE). Please add polyfill yourself if you need them.**
-
-**Note: This project uses element-ui@2.3.0+ version, so the minimum compatible vue@2.5.0+**
-
-**Start using `webpack4` from `v3.8.0`. If you still want to continue using `webpack3`, please use this branch [webpack3](https://github.com/PanJiaChen/vue-element-admin/tree/webpack3)**
 
 ## Preparation
 
@@ -61,10 +55,6 @@ yarn lint -- --fix
 ```
 
 Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/guide/essentials/deploy.html) for more information
-
-## Changelog
-
-Detailed changes for each release are documented in the [release notes](https://github.com/PanJiaChen/vue-element-admin/releases).
 
 ## Browsers support
 
