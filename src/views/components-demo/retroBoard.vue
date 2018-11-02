@@ -34,8 +34,23 @@
               @drag-end="(e) => log('drag end', e)"
             >
               <Draggable v-for="card in column.cards" :key="card.id">
-                <div class="card exactFit">
+                <div class="card exactFit" @mouseover="isActive = !isActive">
                   <p style="white-space: pre-line">{{ card.description }}</p>
+                  <div class="bottom clearfix">
+                    <el-row type="flex" >
+                      <el-col >
+                        <el-button type="info" icon="el-icon-edit" circle plain />
+                        <el-button type="danger" icon="el-icon-delete" circle plain />
+                      </el-col>
+                      <el-col justify="center" />
+                      <el-col :span="5" justify="end">
+                        <el-button >
+                          <svg-icon type="success" icon-class="thumbs-up-regular" />
+                          0
+                        </el-button>
+                      </el-col>
+                    </el-row>
+                  </div>
                 </div>
               </Draggable>
               <AddCardBoard :column-id="column.id"/>
@@ -79,7 +94,8 @@ export default {
 
   data() {
     return {
-      watchRef: null
+      watchRef: null,
+      isActive: false
     }
   },
 
