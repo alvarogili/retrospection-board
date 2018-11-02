@@ -20,8 +20,13 @@
         <Draggable v-for="column in board.columns" :key="column.id">
           <div class="card-container">
             <div class="card-column-header">
-              <span class="column-drag-handle">&#x2630;</span>
-              {{ column.name }}
+              <el-row type="flex" >
+                <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
+                <el-col >{{ column.name }}</el-col>
+                <el-col :span="2" justify="end">
+                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                </el-col>
+              </el-row>
             </div>
             <Container
               :get-child-payload="getCardPayload(column.id)"
@@ -94,7 +99,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard']),
+    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard', 'deleteColmun']),
 
     watchTeam() {
       this.watchRef = database.watch(firebaseBoardPath, (snapshot) => {
@@ -121,13 +126,38 @@ export default {
       }
     },
 
+    getColumnName(columnId) {
+      return this.$store.state.retroBoard.columns.filter(p => p.id === columnId)[0].name
+    },
+
     dragStart() {
       console.log('drag started')
     },
 
     log(...params) {
       console.log(...params)
+    },
+
+    deleteColumn(id) {
+      this.$confirm(this.$t('retroBoard.confirmColumnDelete'), 'Warning', {
+        confirmButtonText: this.$t('retroBoard.confirm'),
+        cancelButtonText: this.$t('retroBoard.cancel'),
+        type: 'warning'
+      }).then(() => {
+        const columnName = this.getColumnName(id)
+        this.deleteColmun(id)
+        this.$message({
+          type: 'success',
+          message: this.$t('retroBoard.deleteColumnOK', { name: columnName })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('retroBoard.deleteColumnCanceled')
+        })
+      })
     }
+
   }
 }
 </script>
