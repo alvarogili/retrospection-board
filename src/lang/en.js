@@ -171,7 +171,7 @@ export default {
     deleteColumnOK: 'Column {name} deleted',
     deleteColumnCanceled: 'Delete canceled',
     confirmColumnDelete: 'This will permanently delete the column. Continue?',
-    editColumn: 'edit Column',
+    editColumn: 'Edit Column Name',
     editionColumnOK: 'Update column name {oldName} to {newName}',
     editionColumnCanceled: 'Edition canceled'
   }

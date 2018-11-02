@@ -171,7 +171,7 @@ export default {
     deleteColumnOK: 'Columna {name} borrada',
     deleteColumnCanceled: 'Borrado cancelado',
     confirmColumnDelete: 'La columna será eliminada permanentemente. ¿Desea continuar?',
-    editColumn: 'editar columna',
+    editColumn: 'Editar Nombre de Columna',
     editionColumnOK: 'El nombre de la columna {oldName} fue actualizado a {newName}',
     editionColumnCanceled: 'Edición cancelada'
   }
