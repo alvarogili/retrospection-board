@@ -163,12 +163,16 @@ export default {
     cancel: 'Cancel',
     confirm: 'Confirm',
     create: 'Create',
+    update: 'Update',
     addedOk: 'Card added successfully',
     addedCancel: 'Card wasn\'t added.',
     addColumnCanceled: 'New column canceled',
     addColumnOK: 'Column {name} created',
     deleteColumnOK: 'Column {name} deleted',
     deleteColumnCanceled: 'Delete canceled',
-    confirmColumnDelete: 'This will permanently delete the column. Continue?'
+    confirmColumnDelete: 'This will permanently delete the column. Continue?',
+    editColumn: 'edit Column',
+    editionColumnOK: 'Update column name {oldName} to {newName}',
+    editionColumnCanceled: 'Edition canceled'
   }
 }

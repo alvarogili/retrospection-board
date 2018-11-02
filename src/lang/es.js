@@ -163,12 +163,16 @@ export default {
     cancel: 'Cancelar',
     confirm: 'Confirmar',
     create: 'Crear',
+    update: 'actualizar',
     addedOk: 'Tarjeta agregada correctamente.',
     addedCancel: 'Tarjeta no agregada',
     addColumnCanceled: 'Creación de la nueva columna cancelada',
     addColumnOK: 'Columna {name} creada',
     deleteColumnOK: 'Columna {name} borrada',
     deleteColumnCanceled: 'Borrado cancelado',
-    confirmColumnDelete: 'La columna será eliminada permanentemente. ¿Desea continuar?'
+    confirmColumnDelete: 'La columna será eliminada permanentemente. ¿Desea continuar?',
+    editColumn: 'editar columna',
+    editionColumnOK: 'El nombre de la columna {oldName} fue actualizado a {newName}',
+    editionColumnCanceled: 'Edición cancelada'
   }
 }

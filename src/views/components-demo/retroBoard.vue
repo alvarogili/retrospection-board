@@ -23,8 +23,11 @@
               <el-row type="flex" >
                 <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
                 <el-col >{{ column.name }}</el-col>
+                <el-col :span="4" justify="end">
+                  <el-button type="info" icon="el-icon-edit" circle @click="editColumn(column.id, column.name)"/>
+                </el-col>
                 <el-col :span="2" justify="end">
-                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id, column.name)"/>
                 </el-col>
               </el-row>
             </div>
@@ -99,7 +102,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard', 'deleteColmun']),
+    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard', 'deleteColmun', 'editColmun']),
 
     watchTeam() {
       this.watchRef = database.watch(firebaseBoardPath, (snapshot) => {
@@ -126,10 +129,6 @@ export default {
       }
     },
 
-    getColumnName(columnId) {
-      return this.$store.state.retroBoard.columns.filter(p => p.id === columnId)[0].name
-    },
-
     dragStart() {
       console.log('drag started')
     },
@@ -138,13 +137,30 @@ export default {
       console.log(...params)
     },
 
-    deleteColumn(id) {
+    editColumn(columnId, columnName) {
+      this.$prompt(this.$t('retroBoard.columnTitle'), this.$t('retroBoard.editColumn'), {
+        confirmButtonText: this.$t('retroBoard.update'),
+        cancelButtonText: this.$t('retroBoard.cancel'),
+        inputValue: columnName
+      }).then(({ value }) => {
+        this.$message({
+          type: 'success',
+          message: this.$t('retroBoard.editionColumnOK', { oldName: columnName, newName: value })
+        })
+        this.editColmun({ id: columnId, columnNewName: value })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('retroBoard.editionColumnCanceled')
+        })
+      })
+    },
+    deleteColumn(id, columnName) {
       this.$confirm(this.$t('retroBoard.confirmColumnDelete'), 'Warning', {
         confirmButtonText: this.$t('retroBoard.confirm'),
         cancelButtonText: this.$t('retroBoard.cancel'),
         type: 'warning'
       }).then(() => {
-        const columnName = this.getColumnName(id)
         this.deleteColmun(id)
         this.$message({
           type: 'success',
