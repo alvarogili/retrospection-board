@@ -5,23 +5,22 @@
       <breadcrumb class="breadcrumb-container"/>
     </div>
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <error-log class="errLog-container right-menu-item"/>
+      <!-- <template v-if="device!=='mobile'"> -->
+      <error-log class="errLog-container right-menu-item"/>
 
-        <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
-          <screenfull class="screenfull right-menu-item"/>
-        </el-tooltip>
+      <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
+        <screenfull class="screenfull right-menu-item"/>
+      </el-tooltip>
 
-        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-          <size-select class="international right-menu-item"/>
-        </el-tooltip>
+      <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
+        <size-select class="international right-menu-item"/>
+      </el-tooltip>
 
-        <lang-select class="international right-menu-item"/>
+      <lang-select class="international right-menu-item"/>
 
-        <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
-          <theme-picker class="theme-switch right-menu-item"/>
-        </el-tooltip>
-      </template>
+      <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
+        <theme-picker class="theme-switch right-menu-item"/>
+      </el-tooltip>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
@@ -44,6 +43,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+    <!-- </template>  -->
     </div>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
   height: 50px;
-  line-height: 50px;
+  line-height: 35px;
   border-radius: 0px !important;
   .hamburger-container {
     line-height: 58px;
@@ -137,11 +137,12 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
+          margin-top: -30px;
         }
         .el-icon-caret-bottom {
           position: absolute;
-          right: -20px;
-          top: 25px;
+          right: -1px;
+          top: 14px;
           font-size: 12px;
         }
       }

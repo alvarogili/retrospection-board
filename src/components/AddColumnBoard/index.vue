@@ -59,5 +59,6 @@ export default {
 .location-add-table-button {
   margin-left: 35px;
   margin-top: 13px;
+  white-space: normal;
 }
 </style>

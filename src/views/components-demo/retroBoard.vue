@@ -1,61 +1,97 @@
 <template>
   <div >
-    <el-row>
-      <el-col :span="4" class="text-center">
-        <AddColumnBoard/>
-      </el-col>
-      <el-col :span="4" class="text-center">
-        <div class="location-add-table-button">
-          <el-button type="primary" onclick="TogetherJS(this); return false;"><b>Start TogetherJS</b></el-button>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="btn-group">
+      <AddColumnBoard/>
+      <div class="location-add-table-button">
+        <el-button type="primary" onclick="TogetherJS(this); return false;"><b>Start TogetherJS</b></el-button>
+      </div>
+    </div>
     <div class="card-board">
-      <Container
-        orientation="horizontal"
-        drag-handle-selector=".column-drag-handle"
-        @drop="onColumnDrop($event)"
-        @drag-start="dragStart"
-      >
-        <Draggable v-for="column in board.columns" :key="column.id">
-          <div class="card-container">
-            <div class="card-column-header">
-              <el-row type="flex" >
-                <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
-                <el-col >{{ column.name }}</el-col>
-                <el-col :span="4" justify="end">
-                  <el-button type="info" icon="el-icon-edit" circle @click="editColumn(column.id, column.name)"/>
-                </el-col>
-                <el-col :span="2" justify="end">
-                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id, column.name)"/>
-                </el-col>
-              </el-row>
+      <template v-if="device!=='mobile'">
+        <Container
+          orientation="horizontal"
+          drag-handle-selector=".column-drag-handle"
+          @drop="onColumnDrop($event)"
+          @drag-start="dragStart"
+        >
+          <Draggable v-for="column in board.columns" :key="column.id">
+            <div class="card-container">
+              <div class="card-column-header">
+                <el-row type="flex" >
+                  <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
+                  <el-col >{{ column.name }}</el-col>
+                  <el-col :span="2" justify="end">
+                    <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                  </el-col>
+                </el-row>
+                <span class="column-drag-handle">&#x2630;</span>
+                {{ column.name }}
+              </div>
+              <Container
+                :get-child-payload="getCardPayload(column.id)"
+                group-name="col"
+                drag-class="card-ghost"
+                drop-class="card-ghost-drop"
+                @drop="(e) => onCardDrop(column.id, e)"
+                @drag-start="(e) => log('drag start', e)"
+                @drag-end="(e) => log('drag end', e)"
+              >
+                <Draggable v-for="card in column.cards" :key="card.id">
+                  <div class="card exactFit">
+                    <p style="white-space: pre-line">{{ card.description }}</p>
+                  </div>
+                </Draggable>
+                <AddCardBoard :column-id="column.id"/>
+              </Container>
             </div>
-            <Container
-              :get-child-payload="getCardPayload(column.id)"
-              group-name="col"
-              drag-class="card-ghost"
-              drop-class="card-ghost-drop"
-              @drop="(e) => onCardDrop(column.id, e)"
-              @drag-start="(e) => log('drag start', e)"
-              @drag-end="(e) => log('drag end', e)"
-            >
-              <Draggable v-for="card in column.cards" :key="card.id">
-                <div class="card exactFit">
-                  <p style="white-space: pre-line">{{ card.description }}</p>
-                </div>
-              </Draggable>
-              <AddCardBoard :column-id="column.id"/>
-            </Container>
-            <AddCardBoard :scene="column.id"/>
-          </div>
-        </Draggable>
-      </Container>
+          </Draggable>
+        </Container>
+      </template>
+      <template v-if="device==='mobile'">
+        <Container
+          drag-handle-selector=".column-drag-handle"
+          @drop="onColumnDrop($event)"
+          @drag-start="dragStart"
+        >
+          <Draggable v-for="column in board.columns" :key="column.id">
+            <div class="card-container">
+              <div class="card-column-header">
+                <el-row type="flex" >
+                  <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
+                  <el-col >{{ column.name }}</el-col>
+                  <el-col :span="2" justify="end">
+                    <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                  </el-col>
+                </el-row>
+                <span class="column-drag-handle">&#x2630;</span>
+                {{ column.name }}
+              </div>
+              <Container
+                :get-child-payload="getCardPayload(column.id)"
+                group-name="col"
+                drag-class="card-ghost"
+                drop-class="card-ghost-drop"
+                @drop="(e) => onCardDrop(column.id, e)"
+                @drag-start="(e) => log('drag start', e)"
+                @drag-end="(e) => log('drag end', e)"
+              >
+                <Draggable v-for="card in column.cards" :key="card.id">
+                  <div class="card exactFit">
+                    <p style="white-space: pre-line">{{ card.description }}</p>
+                  </div>
+                </Draggable>
+                <AddCardBoard :column-id="column.id"/>
+              </Container>
+            </div>
+          </Draggable>
+        </Container>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import AddColumnBoard from '@/components/AddColumnBoard'
 import AddCardBoard from '@/components/AddCardBoard'
@@ -93,7 +129,13 @@ export default {
   computed: {
     ...mapState({
       board: state => state.retroBoard
-    })
+    }),
+    ...mapGetters([
+      'sidebar',
+      'name',
+      'avatar',
+      'device'
+    ])
   },
 
   mounted() {
@@ -311,7 +353,7 @@ export default {
 }
 
 .location-add-table-button {
-  margin-left: 35px;
+  margin-left: 20px;
   margin-top: 13px;
 }
 
