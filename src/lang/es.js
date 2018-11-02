@@ -166,6 +166,9 @@ export default {
     addedOk: 'Tarjeta agregada correctamente.',
     addedCancel: 'Tarjeta no agregada',
     addColumnCanceled: 'Creación de la nueva columna cancelada',
-    addColumnOK: 'Columna {name} creada'
+    addColumnOK: 'Columna {name} creada',
+    deleteColumnOK: 'Columna {name} borrada',
+    deleteColumnCanceled: 'Borrado cancelado',
+    confirmColumnDelete: 'La columna será eliminada permanentemente. ¿Desea continuar?'
   }
 }
