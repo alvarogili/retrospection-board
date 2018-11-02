@@ -7,85 +7,42 @@
       </div>
     </div>
     <div class="card-board">
-      <template v-if="device!=='mobile'">
-        <Container
-          orientation="horizontal"
-          drag-handle-selector=".column-drag-handle"
-          @drop="onColumnDrop($event)"
-          @drag-start="dragStart"
-        >
-          <Draggable v-for="column in board.columns" :key="column.id">
-            <div class="card-container">
-              <div class="card-column-header">
-                <el-row type="flex" >
-                  <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
-                  <el-col >{{ column.name }}</el-col>
-                  <el-col :span="2" justify="end">
-                    <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
-                  </el-col>
-                </el-row>
-                <span class="column-drag-handle">&#x2630;</span>
-                {{ column.name }}
-              </div>
-              <Container
-                :get-child-payload="getCardPayload(column.id)"
-                group-name="col"
-                drag-class="card-ghost"
-                drop-class="card-ghost-drop"
-                @drop="(e) => onCardDrop(column.id, e)"
-                @drag-start="(e) => log('drag start', e)"
-                @drag-end="(e) => log('drag end', e)"
-              >
-                <Draggable v-for="card in column.cards" :key="card.id">
-                  <div class="card exactFit">
-                    <p style="white-space: pre-line">{{ card.description }}</p>
-                  </div>
-                </Draggable>
-                <AddCardBoard :column-id="column.id"/>
-              </Container>
+      <Container
+        :orientation="orientation"
+        drag-handle-selector=".column-drag-handle"
+        @drop="onColumnDrop($event)"
+        @drag-start="dragStart"
+      >
+        <Draggable v-for="column in board.columns" :key="column.id">
+          <div class="card-container">
+            <div class="card-column-header">
+              <el-row type="flex" >
+                <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
+                <el-col >{{ column.name }}</el-col>
+                <el-col :span="2" justify="end">
+                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                </el-col>
+              </el-row>
             </div>
-          </Draggable>
-        </Container>
-      </template>
-      <template v-if="device==='mobile'">
-        <Container
-          drag-handle-selector=".column-drag-handle"
-          @drop="onColumnDrop($event)"
-          @drag-start="dragStart"
-        >
-          <Draggable v-for="column in board.columns" :key="column.id">
-            <div class="card-container">
-              <div class="card-column-header">
-                <el-row type="flex" >
-                  <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
-                  <el-col >{{ column.name }}</el-col>
-                  <el-col :span="2" justify="end">
-                    <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
-                  </el-col>
-                </el-row>
-                <span class="column-drag-handle">&#x2630;</span>
-                {{ column.name }}
-              </div>
-              <Container
-                :get-child-payload="getCardPayload(column.id)"
-                group-name="col"
-                drag-class="card-ghost"
-                drop-class="card-ghost-drop"
-                @drop="(e) => onCardDrop(column.id, e)"
-                @drag-start="(e) => log('drag start', e)"
-                @drag-end="(e) => log('drag end', e)"
-              >
-                <Draggable v-for="card in column.cards" :key="card.id">
-                  <div class="card exactFit">
-                    <p style="white-space: pre-line">{{ card.description }}</p>
-                  </div>
-                </Draggable>
-                <AddCardBoard :column-id="column.id"/>
-              </Container>
-            </div>
-          </Draggable>
-        </Container>
-      </template>
+            <Container
+              :get-child-payload="getCardPayload(column.id)"
+              group-name="col"
+              drag-class="card-ghost"
+              drop-class="card-ghost-drop"
+              @drop="(e) => onCardDrop(column.id, e)"
+              @drag-start="(e) => log('drag start', e)"
+              @drag-end="(e) => log('drag end', e)"
+            >
+              <Draggable v-for="card in column.cards" :key="card.id">
+                <div class="card exactFit">
+                  <p style="white-space: pre-line">{{ card.description }}</p>
+                </div>
+              </Draggable>
+              <AddCardBoard :column-id="column.id"/>
+            </Container>
+          </div>
+        </Draggable>
+      </Container>
     </div>
   </div>
 </template>
@@ -135,7 +92,13 @@ export default {
       'name',
       'avatar',
       'device'
-    ])
+    ]),
+    orientation() {
+      if (this.device !== 'mobile') {
+        return 'horizontal'
+      }
+      return ''
+    }
   },
 
   mounted() {
