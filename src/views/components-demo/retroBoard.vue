@@ -19,8 +19,11 @@
               <el-row type="flex" >
                 <el-col :span="2"><span class="column-drag-handle">&#x2630;</span></el-col>
                 <el-col >{{ column.name }}</el-col>
-                <el-col :span="2" justify="end">
-                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id)"/>
+                <el-col :span="6" justify="end">
+                  <el-button type="info" icon="el-icon-edit" circle @click="editColumn(column.id, column.name)"/>
+                </el-col>
+                <el-col :span="4" justify="end">
+                  <el-button type="danger" icon="el-icon-delete" circle @click="deleteColumn(column.id, column.name)"/>
                 </el-col>
               </el-row>
             </div>
@@ -40,14 +43,13 @@
                     <el-row type="flex" >
                       <el-col >
                         <el-button type="info" icon="el-icon-edit" circle plain />
+                      </el-col>
+                      <el-col>
                         <el-button type="danger" icon="el-icon-delete" circle plain />
                       </el-col>
                       <el-col justify="center" />
-                      <el-col :span="5" justify="end">
-                        <el-button >
-                          <svg-icon type="success" icon-class="thumbs-up-regular" />
-                          0
-                        </el-button>
+                      <el-col justify="end">
+                        <CardVotes :column-id="column.id" :card-id="card.id" />
                       </el-col>
                     </el-row>
                   </div>
@@ -67,6 +69,7 @@ import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import AddColumnBoard from '@/components/AddColumnBoard'
 import AddCardBoard from '@/components/AddCardBoard'
+import CardVotes from '@/components/CardVotes'
 import { mapState, mapActions } from 'vuex'
 import database from '@/api/database'
 import { firebaseBoardPath } from '@/config'
@@ -89,8 +92,7 @@ import { firebaseBoardPath } from '@/config'
 
 export default {
   name: 'Cards',
-
-  components: { Container, Draggable, AddColumnBoard },
+  components: { Container, Draggable, AddColumnBoard, AddCardBoard, CardVotes },
 
   data() {
     return {
@@ -193,6 +195,10 @@ export default {
           message: this.$t('retroBoard.deleteColumnCanceled')
         })
       })
+    },
+
+    votes(columnId, cardId) {
+      console.log(columnId, cardId)
     }
 
   }

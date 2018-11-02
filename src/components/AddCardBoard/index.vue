@@ -57,8 +57,7 @@ export default {
       console.log(size)
       var newCard = {
         id: `card-${this.columnId}-${size}`,
-        description: cardDesc,
-        votes: 0
+        description: cardDesc
       }
 
       var cardObject = {
