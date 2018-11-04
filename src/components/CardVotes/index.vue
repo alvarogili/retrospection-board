@@ -1,12 +1,12 @@
 <template>
-  <el-button :disabled="voteReady" type="success" round plain @click="vote" >
+  <el-button :class="[voteReady ? 'is-round': 'is-plain is-round' ]" type="success" @click="vote" >
     <svg-icon icon-class="thumbs-up-regular" />
     {{ votes }}
   </el-button>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'CardVotes',
@@ -28,20 +28,38 @@ export default {
   computed: {
     ...mapState({
       votes(state) {
-        console.log('....')
-        console.log(state)
-        if (state.retroBoard.columns[this.columnId].cards) {
-          var votes = state.retroBoard.columns[this.columnId].cards[0].votes
-          if (votes) {
-            return votes.length
-          }
+        var card = state.retroBoard.columns[this.columnId - 1].cards.find(c => c.id === this.cardId)
+        if (card.votes) {
+          return card.votes.length
         }
         return 0
       }
-    })
+    }),
+    background() {
+      if (this.voteReady) {
+        return 'plain'
+      }
+      return ' '
+    }
   },
   methods: {
+    ...mapActions(['voteCard', 'unvoteCard', 'GetUserInfo']),
     vote() {
+      const card = this.$store.state.retroBoard.columns[this.columnId - 1].cards.find(c => c.id === this.cardId)
+      const cardIndex = this.$store.state.retroBoard.columns[this.columnId - 1].cards.indexOf(card)
+      const userData = this.$store.state.user
+      const cardVoteObject = {
+        columnIndex: this.columnId - 1,
+        cardIndex: cardIndex,
+        user: userData.name
+      }
+      if (!this.voteReady) {
+        console.log('adding vote')
+        this.voteCard(cardVoteObject)
+      } else {
+        console.log('removing vote')
+        this.unvoteCard(cardVoteObject)
+      }
       this.voteReady = !this.voteReady
     }
   }

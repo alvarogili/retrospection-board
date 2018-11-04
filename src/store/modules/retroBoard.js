@@ -14,7 +14,7 @@
   ]
  */
 
-import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD, APPLY_DRAG_BOARD, APPLY_DRAG_CARD, LOAD_BOARD } from '@/store/mutation-types'
+import { ADD_COLUMN, DELETE_COLUMN, EDIT_COLUMN, ADD_CARD, EDIT_CARD, DELETE_CARD, APPLY_DRAG_BOARD, APPLY_DRAG_CARD, LOAD_BOARD, CARD_ADD_VOTE, CARD_DELETE_VOTE } from '@/store/mutation-types'
 import { applyDrag } from '@/utils/helpers'
 
 const retroBoard = {
@@ -40,6 +40,21 @@ const retroBoard = {
       }
       column.cards = applyDrag(cards, dropResult)
       state.columns.splice(columnIndex, 1, column)
+    },
+    [CARD_ADD_VOTE]: (state, cardVote) => {
+      if (state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes) {
+        state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes.push(cardVote.user)
+      } else {
+        state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes = [cardVote.user]
+      }
+    },
+    [CARD_DELETE_VOTE]: (state, cardVote) => {
+      for (var i = 0; i < state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes.length; i++) {
+        if (state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes[i] === cardVote.user) {
+          state.columns[cardVote.columnIndex].cards[cardVote.cardIndex].votes.splice(i, 1)
+          return
+        }
+      }
     },
     [ADD_COLUMN]: (state, column) => {
       state.columns.push(column)
@@ -128,6 +143,12 @@ const retroBoard = {
     },
     deleteCard({ commit }, cardObject) {
       commit(DELETE_CARD, cardObject)
+    },
+    voteCard({ commit }, cardVoteObject) {
+      commit(CARD_ADD_VOTE, cardVoteObject)
+    },
+    unvoteCard({ commit }, cardVoteObject) {
+      commit(CARD_DELETE_VOTE, cardVoteObject)
     }
   }
 }
