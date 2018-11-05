@@ -90,27 +90,57 @@ const retroBoard = {
         }
       }
     },
-    [EDIT_CARD]: (state, cardObject) => {
+    [EDIT_CARD]: (state, cardObject) => { 
       for (var i = 0; i < state.columns.length; i++) {
-        if (state.columns[i].id === cardObject.columnId) {
+        var columnId = []
+        columnId = cardObject.id.split('-')
+        if (state.columns[i].id == columnId[1]) {
           for (var j = 0; j < state.columns[i].cards.length; j++) {
-            if (state.columns[i].cards[j].id === cardObject.id) {
-              state.columns[i].cards[j] = cardObject.card
+            console.log('llego 3 ')
+            console.log('state.columns[i].cards[j].id', state.columns[i].cards[j].id)
+            console.log('state.columns[i].id', state.columns[i].id) 
+            console.log('columnId[2]', columnId[2])
+            var cardId = []
+            cardId = state.columns[i].cards[j].id.split("-")
+            console.log('cardId[2]', cardId[2])
+            if (cardId[2] == columnId[2]) {
+              console.log('ayy')
+              console.log('state.columns[i].cards[j].description', state.columns[i].cards[j].description)
+              console.log('cardObject',cardObject)
+             state.columns[i].cards[j].description = cardObject.cardNewDescription
             }
-            return
           }
+          return          
         }
       }
     },
     [DELETE_CARD]: (state, cardObject) => {
+      console.log('llego 1 ')
+
       for (var i = 0; i < state.columns.length; i++) {
-        if (state.columns[i].id === cardObject.columnId) {
+        console.log('llego 1.1 ')
+        console.log('cardObject.id ', cardObject.id)
+        var columnId = []
+        columnId = cardObject.id.split('-')
+        console.log('llego 2 ')
+
+        if (state.columns[i].id == columnId[1]) {
           for (var j = 0; j < state.columns[i].cards.length; j++) {
-            if (state.columns[i].cards[j].id === cardObject.id) {
+            console.log('llego 3 ')
+            console.log('state.columns[i].cards[j].id', state.columns[i].cards[j].id)
+            console.log('state.columns[i].id', state.columns[i].id) 
+            console.log('columnId[2]', columnId[2])
+            var cardId = []
+            cardId = state.columns[i].cards[j].id.split("-")
+            console.log('cardId[2]', cardId[2])
+            if (cardId[2] == columnId[2]) {
+              console.log('ayy')
+              console.log('state.columns[i].cards[j].description', state.columns[i].cards[j].description)
+              console.log('cardObject',cardObject)
               state.columns[i].cards.splice(j, 1)
             }
-            return
           }
+          return
         }
       }
     }
@@ -138,10 +168,10 @@ const retroBoard = {
     addCard({ commit }, cardObject) {
       commit(ADD_CARD, cardObject)
     },
-    editCard({ commit }, cardObject) {
+    editCardAction({ commit }, cardObject) {
       commit(EDIT_CARD, cardObject)
     },
-    deleteCard({ commit }, cardObject) {
+    deleteCardAction({ commit }, cardObject) {
       commit(DELETE_CARD, cardObject)
     },
     voteCard({ commit }, cardVoteObject) {

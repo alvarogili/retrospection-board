@@ -42,10 +42,8 @@
                   <div class="bottom clearfix">
                     <el-row type="flex" >
                       <el-col >
-                        <el-button type="info" icon="el-icon-edit" circle plain />
-                      </el-col>
-                      <el-col>
-                        <el-button type="danger" icon="el-icon-delete" circle plain />
+                        <el-button type="info" icon="el-icon-edit" circle plain @click="editCard(card.id, card.description)"/>
+                        <el-button type="danger" icon="el-icon-delete" circle plain @click="deleteCard(card.id, card.description)"/>
                       </el-col>
                       <el-col justify="center" />
                       <el-col justify="end">
@@ -125,7 +123,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard', 'deleteColmun', 'editColmun']),
+    ...mapActions(['applyDragBoard', 'applyDragCard', 'loadBoard', 'deleteColmun', 'editColmun', 'editCardAction', 'deleteCardAction']),
 
     watchTeam() {
       this.watchRef = database.watch(firebaseBoardPath, (snapshot) => {
@@ -199,6 +197,45 @@ export default {
 
     votes(columnId, cardId) {
       console.log(columnId, cardId)
+    },
+  editCard(cardId, cardDescription) {
+      this.$prompt(this.$t('retroBoard.cardTitle'), this.$t('retroBoard.editCard'), {
+        confirmButtonText: this.$t('retroBoard.update'),
+        cancelButtonText: this.$t('retroBoard.cancel'),
+        inputValue: cardDescription
+      }).then(({ value }) => {
+        this.$message({
+          type: 'success',
+          message: this.$t('retroBoard.editionCardOK', { oldName: cardDescription, newName: value })
+        })
+        this.editCardAction({ id: cardId, cardNewDescription: value })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('retroBoard.editionCardCanceled')
+        })
+      })
+    },
+    deleteCard(id, cardDescription) {
+      console.log('id ',id)
+      console.log('cardDescription ',cardDescription)
+
+      this.$confirm(this.$t('retroBoard.confirmCardDelete'), 'Warning', {
+        confirmButtonText: this.$t('retroBoard.confirm'),
+        cancelButtonText: this.$t('retroBoard.cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.deleteCardAction({id: id})
+        this.$message({
+          type: 'success',
+          message: this.$t('retroBoard.deleteCardOK', { description: cardDescription })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: this.$t('retroBoard.deleteCardCanceled')
+        })
+      })
     }
 
   }

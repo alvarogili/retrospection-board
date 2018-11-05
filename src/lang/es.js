@@ -173,6 +173,12 @@ export default {
     confirmColumnDelete: 'La columna será eliminada permanentemente. ¿Desea continuar?',
     editColumn: 'Editar Nombre de Columna',
     editionColumnOK: 'El nombre de la columna {oldName} fue actualizado a {newName}',
-    editionColumnCanceled: 'Edición cancelada'
+    cardTitle: 'Inserte el nombre de la nueva tarjeta',
+    editionCardCanceled: 'Edición cancelada',
+    deleteCardOK: 'Tarjeta {name} borrada',
+    deleteCardCanceled: 'Borrado cancelado',
+    confirmCardDelete: 'La tarjeta será eliminada permanentemente. ¿Desea continuar?',
+    editCard: 'Editar Nombre de tarjeta',
+    editionCardOK: 'El nombre de la tarjeta {oldName} fue actualizado a {newName}'
   }
 }

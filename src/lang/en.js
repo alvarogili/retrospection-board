@@ -173,6 +173,13 @@ export default {
     confirmColumnDelete: 'This will permanently delete the column. Continue?',
     editColumn: 'Edit Column Name',
     editionColumnOK: 'Update column name {oldName} to {newName}',
-    editionColumnCanceled: 'Edition canceled'
+    cardTitle: 'Insert the name of the new card',
+    editionColumnCanceled: 'Edition canceled',
+    deleteCardOK: 'Card {name} deleted',
+    deleteCardCanceled: 'Delete canceled',
+    confirmCardDelete: 'This will permanently delete the card. Continue?',
+    editCard: 'Edit card Name',
+    editionCardOK: 'Update card name {oldName} to {newName}',
+    editionCardCanceled: 'Edition canceled'
   }
 }
