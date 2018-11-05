@@ -50,12 +50,7 @@ export default {
     },
     addNewCard(cardDesc) {
       console.log('add card to column with id=' + this.columnId)
-      var cardId = 1
-      this.$store.state.retroBoard.columns.forEach(column => {
-        if (column.cards) {
-          cardId = column.cards.length + cardId
-        }
-      })
+      var cardId = Date.now()
       var newCard = {
         id: `card-${cardId}`,
         description: cardDesc
