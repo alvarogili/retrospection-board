@@ -50,13 +50,14 @@ export default {
     },
     addNewCard(cardDesc) {
       console.log('add card to column with id=' + this.columnId)
-      var size = 1
-      if (this.$store.state.retroBoard.columns[this.columnId - 1].cards) {
-        size = this.$store.state.retroBoard.columns[this.columnId - 1].cards.length + 1
-      }
-      console.log(size)
+      var cardId = 1
+      this.$store.state.retroBoard.columns.forEach(column => {
+        if (column.cards) {
+          cardId = column.cards.length + cardId
+        }
+      })
       var newCard = {
-        id: `card-${this.columnId}-${size}`,
+        id: `card-${cardId}`,
         description: cardDesc
       }
 
