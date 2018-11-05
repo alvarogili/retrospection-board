@@ -28,7 +28,8 @@ export default {
   computed: {
     ...mapState({
       votes(state) {
-        var card = state.retroBoard.columns[this.columnId - 1].cards.find(c => c.id === this.cardId)
+        const column = state.retroBoard.columns.find(c => c.id === this.columnId)
+        var card = column.cards.find(c => c.id === this.cardId)
         if (card.votes) {
           return card.votes.length
         }
@@ -45,11 +46,13 @@ export default {
   methods: {
     ...mapActions(['voteCard', 'unvoteCard', 'GetUserInfo']),
     vote() {
-      const card = this.$store.state.retroBoard.columns[this.columnId - 1].cards.find(c => c.id === this.cardId)
-      const cardIndex = this.$store.state.retroBoard.columns[this.columnId - 1].cards.indexOf(card)
+      const column = this.$store.state.retroBoard.columns.find(c => c.id === this.columnId)
+      const columnIndex = this.$store.state.retroBoard.columns.indexOf(column)
+      const card = column.cards.find(c => c.id === this.cardId)
+      const cardIndex = column.cards.indexOf(card)
       const userData = this.$store.state.user
       const cardVoteObject = {
-        columnIndex: this.columnId - 1,
+        columnIndex: columnIndex,
         cardIndex: cardIndex,
         user: userData.name
       }
