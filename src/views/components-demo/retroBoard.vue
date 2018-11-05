@@ -42,8 +42,8 @@
                   <div class="bottom clearfix">
                     <el-row type="flex" >
                       <el-col >
-                        <el-button type="info" icon="el-icon-edit" circle plain @click="editCard(card.id, card.description)"/>
-                        <el-button type="danger" icon="el-icon-delete" circle plain @click="deleteCard(card.id, card.description)"/>
+                        <el-button type="info" icon="el-icon-edit" circle plain @click="editCard(column.id, card.id, card.description)"/>
+                        <el-button type="danger" icon="el-icon-delete" circle plain @click="deleteCard(column.id, card.id)"/>
                       </el-col>
                       <el-col justify="center" />
                       <el-col justify="end">
@@ -198,17 +198,25 @@ export default {
     votes(columnId, cardId) {
       console.log(columnId, cardId)
     },
-  editCard(cardId, cardDescription) {
+    editCard(columnId, cardId, cardDescription) {
+      const card = this.$store.state.retroBoard.columns[columnId - 1].cards.find(c => c.id == cardId)
+      const cardIndex = this.$store.state.retroBoard.columns[columnId - 1].cards.indexOf(card)
+
       this.$prompt(this.$t('retroBoard.cardTitle'), this.$t('retroBoard.editCard'), {
         confirmButtonText: this.$t('retroBoard.update'),
         cancelButtonText: this.$t('retroBoard.cancel'),
         inputValue: cardDescription
       }).then(({ value }) => {
-        this.$message({
+          this.$message({
           type: 'success',
           message: this.$t('retroBoard.editionCardOK', { oldName: cardDescription, newName: value })
         })
-        this.editCardAction({ id: cardId, cardNewDescription: value })
+        const cardObject = {
+          columnIndex: columnId - 1,
+          cardIndex: cardIndex,
+          cardNewDescription: value
+        }
+        this.editCardAction(cardObject)
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -216,19 +224,23 @@ export default {
         })
       })
     },
-    deleteCard(id, cardDescription) {
-      console.log('id ',id)
-      console.log('cardDescription ',cardDescription)
+    deleteCard(columnId, cardId) {
+      const card = this.$store.state.retroBoard.columns[columnId - 1].cards.find(c => c.id == cardId)
+      const cardIndex = this.$store.state.retroBoard.columns[columnId - 1].cards.indexOf(card)
 
       this.$confirm(this.$t('retroBoard.confirmCardDelete'), 'Warning', {
         confirmButtonText: this.$t('retroBoard.confirm'),
         cancelButtonText: this.$t('retroBoard.cancel'),
         type: 'warning'
       }).then(() => {
-        this.deleteCardAction({id: id})
+        const cardObject = {
+          columnIndex: columnId - 1,
+          cardIndex: cardIndex
+        }        
+        this.deleteCardAction(cardObject)
         this.$message({
           type: 'success',
-          message: this.$t('retroBoard.deleteCardOK', { description: cardDescription })
+          message: this.$t('retroBoard.deleteCardOK')
         })
       }).catch(() => {
         this.$message({
