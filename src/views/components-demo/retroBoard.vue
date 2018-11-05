@@ -198,21 +198,24 @@ export default {
     votes(columnId, cardId) {
       console.log(columnId, cardId)
     },
+
     editCard(columnId, cardId, cardDescription) {
-      const card = this.$store.state.retroBoard.columns[columnId - 1].cards.find(c => c.id == cardId)
-      const cardIndex = this.$store.state.retroBoard.columns[columnId - 1].cards.indexOf(card)
+      const column = this.$store.state.retroBoard.columns.find(c => c.id === columnId)
+      const columnIndex = this.$store.state.retroBoard.columns.indexOf(column)
+      const card = column.cards.find(c => c.id === cardId)
+      const cardIndex = column.cards.indexOf(card)
 
       this.$prompt(this.$t('retroBoard.cardTitle'), this.$t('retroBoard.editCard'), {
         confirmButtonText: this.$t('retroBoard.update'),
         cancelButtonText: this.$t('retroBoard.cancel'),
         inputValue: cardDescription
       }).then(({ value }) => {
-          this.$message({
+        this.$message({
           type: 'success',
           message: this.$t('retroBoard.editionCardOK', { oldName: cardDescription, newName: value })
         })
         const cardObject = {
-          columnIndex: columnId - 1,
+          columnIndex: columnIndex,
           cardIndex: cardIndex,
           cardNewDescription: value
         }
@@ -225,8 +228,10 @@ export default {
       })
     },
     deleteCard(columnId, cardId) {
-      const card = this.$store.state.retroBoard.columns[columnId - 1].cards.find(c => c.id == cardId)
-      const cardIndex = this.$store.state.retroBoard.columns[columnId - 1].cards.indexOf(card)
+      const column = this.$store.state.retroBoard.columns.find(c => c.id === columnId)
+      const columnIndex = this.$store.state.retroBoard.columns.indexOf(column)
+      const card = column.cards.find(c => c.id === cardId)
+      const cardIndex = column.cards.indexOf(card)
 
       this.$confirm(this.$t('retroBoard.confirmCardDelete'), 'Warning', {
         confirmButtonText: this.$t('retroBoard.confirm'),
@@ -234,9 +239,9 @@ export default {
         type: 'warning'
       }).then(() => {
         const cardObject = {
-          columnIndex: columnId - 1,
+          columnIndex: columnIndex,
           cardIndex: cardIndex
-        }        
+        }
         this.deleteCardAction(cardObject)
         this.$message({
           type: 'success',
