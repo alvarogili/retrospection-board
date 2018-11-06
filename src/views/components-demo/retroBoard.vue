@@ -395,7 +395,6 @@ export default {
 
 .buttons-no-white-space {
   white-space: nowrap;
-  margin-left: auto;
 }
 
 .margin-letf-auto {
