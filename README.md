@@ -1,4 +1,3 @@
-
 ## Introduction
 
 [retrospection-board](https://gitlab.ascentio.com.ar/canopus-team/retro-board/retrospection-board) make more fun the Retrospective . It based on [vue](https://github.com/vuejs/vue) and [vue-element-admin](http://panjiachen.github.io/vue-element-admin)  and use the UI Toolkit [element](https://github.com/ElemeFE/element).
