@@ -41,10 +41,12 @@
                   <p style="white-space: pre-line">{{ card.description }}</p>
                   <div class="bottom clearfix">
                     <el-row type="flex" >
-                      <el-col >
-                        <el-button type="info" icon="el-icon-edit" circle plain @click="editCard(column.id, card.id, card.description)"/>
-                        <el-button type="danger" icon="el-icon-delete" circle plain @click="deleteCard(column.id, card.id)"/>
-                      </el-col>
+                      <div class= "buttons-no-white-space">
+                        <el-col >
+                          <el-button type="info" icon="el-icon-edit" circle plain @click="editCard(column.id, card.id, card.description)"/>
+                          <el-button class="margin-letf-auto" type="danger" icon="el-icon-delete" circle plain @click="deleteCard(column.id, card.id)"/>
+                        </el-col>
+                      </div>
                       <el-col justify="center" />
                       <el-col justify="end">
                         <CardVotes :column-id="column.id" :card-id="card.id" />
@@ -389,6 +391,14 @@ export default {
 
 .smooth-dnd-container.horizontal {
   white-space: normal;
+}
+
+.buttons-no-white-space {
+  white-space: nowrap;
+}
+
+.margin-letf-auto {
+  margin-left: auto;
 }
 
 .location-add-table-button {
