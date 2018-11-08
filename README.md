@@ -55,6 +55,25 @@ yarn lint -- --fix
 
 Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/guide/essentials/deploy.html) for more information
 
+## Configuration
+
+At the moment, it board use [Firebase](https://firebase.google.com/). Is necessary configure you own database to use, for it, you must create a file into the src folder with name config.js and content like the next:
+
+```json
+export const firebaseConfig = {
+  apiKey: '<apiKey>',
+  authDomain: '<authDomain>',
+  databaseURL: '<databaseURL>',
+  projectId: '<projectId>',
+  storageBucket: '<storageBucket>',
+  messagingSenderId: '<messagingSenderId>'
+}
+
+export const firebaseBoardPath = '<firebaseBoardPath>'
+```
+
+Replace tags between <>  in firebaseConfig by the values given by Firebase and set firebaseBoardPath with the name of the database created
+
 ## Browsers support
 
 Modern browsers and Internet Explorer 10+.
