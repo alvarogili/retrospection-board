@@ -57,7 +57,7 @@ Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/gui
 
 ## Configuration
 
-At the moment, it board use [Firebase](https://firebase.google.com/). Is necessary configure you own database to use, for it, you must create a file into the src folder with name config.js and content like the next:
+At the moment, it board use [Firebase](https://firebase.google.com/). Is necessary configure you own database to use the board, for it, you must create a file into the src folder with name config.js and content like the next:
 
 ```json
 export const firebaseConfig = {
