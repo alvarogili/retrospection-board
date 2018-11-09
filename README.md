@@ -1,6 +1,6 @@
 ## Introduction
 
-[retrospection-board](https://gitlab.ascentio.com.ar/canopus-team/retro-board/retrospection-board) make more fun the Retrospective . It based on [vue](https://github.com/vuejs/vue) and [vue-element-admin](http://panjiachen.github.io/vue-element-admin)  and use the UI Toolkit [element](https://github.com/ElemeFE/element).
+[retrospection-board](https://gitlab.com/alvarogili/retrospection-board) make more fun the Retrospective . It based on [vue](https://github.com/vuejs/vue) and [vue-element-admin](http://panjiachen.github.io/vue-element-admin)  and use the UI Toolkit [element](https://github.com/ElemeFE/element).
 
 **This project does not support low version browsers (e.g. IE). Please add polyfill yourself if you need them.**
 
@@ -13,7 +13,7 @@ Understanding and learning this knowledge in advance will greatly help the use o
 
 ```bash
 # clone the project
-git clone git@gitlab.ascentio.com.ar:canopus-team/retro-board/retrospection-board.git
+git clone git@gitlab.com:alvarogili/retrospection-board.git
 
 # install dependency
 yarn
