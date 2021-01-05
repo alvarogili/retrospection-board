@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@firebase/firestore": "^0.8.6",
-    "axios": "0.18.1",
+    "axios": "0.21.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "connect": "3.6.6",
     "echarts": "4.1.0",
